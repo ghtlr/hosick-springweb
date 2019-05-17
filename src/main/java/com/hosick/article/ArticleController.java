@@ -56,16 +56,26 @@ public class ArticleController {
 	 */
 	@GetMapping("/article/addForm")
 	public String articleAddForm(HttpSession session) {
+		Object memberObj = session.getAttribute("MEMBER");
+		if (memberObj == null)
+			return "redirect:/app/loginForm";
+
 		return "article/addForm";
 	}
 
-	
-	@PostMapping("/complete")
-	public String addArticle(Article article, HttpSession session) {
-		article.setUserId("2017041052");
-		article.setName("최호식");
+	/**
+	 * 글 등록
+	 */
+	@PostMapping("/article/add")
+	public String articleAdd(Article article, HttpSession session) {
+		Object memberObj = session.getAttribute("MEMBER");
+		if (memberObj == null)
+			return "redirect:/app/loginForm";
+
+		Member member = (Member) memberObj;
+		article.setUserId(member.getMemberId());
+		article.setName(member.getName());
 		articleDao.addArticle(article);
-			return "write";
-		}
-	
+		return "redirect:/app/article/list";
+	}
 }
