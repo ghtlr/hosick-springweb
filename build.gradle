@@ -61,7 +61,7 @@ task distweb(dependsOn:makeweb, type:Copy) {
 	from ('dist') {include 'WEB-INF/jsp/**' }
 	into "$appDir"
 }
-  
+
 // dist full
 task dist(dependsOn:makedist, type:Sync) {
 	from 'dist'
