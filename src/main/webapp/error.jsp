@@ -1,3 +1,4 @@
+<%@ page isErrorPage="true"%>
 <html>
 <body>
 	<h2>Error</h2>

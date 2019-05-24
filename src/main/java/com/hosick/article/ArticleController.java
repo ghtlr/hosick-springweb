@@ -8,13 +8,13 @@ import com.hosick.chap11.Member;
 import org.apache.logging.log4j.LogManager; 
 import org.apache.logging.log4j.Logger; 
 import org.springframework.beans.factory.annotation.Autowired; 
-import org.springframework.dao.DuplicateKeyException; 
 import org.springframework.stereotype.Controller; 
 import org.springframework.ui.Model; 
 import org.springframework.web.bind.annotation.GetMapping; 
 import org.springframework.web.bind.annotation.PostMapping; 
-import org.springframework.web.bind.annotation.RequestMapping; 
-import org.springframework.web.bind.annotation.RequestParam; 
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute; 
 
 
 @Controller
@@ -22,6 +22,8 @@ public class ArticleController {
 
 	@Autowired
 	ArticleDao articleDao;
+
+	Logger logger = LogManager.getLogger();
 
 	/**
 	 * 글 목록
@@ -55,24 +57,20 @@ public class ArticleController {
 	 * 글 등록 화면
 	 */
 	@GetMapping("/article/addForm")
-	public String articleAddForm(HttpSession session) {
-		Object memberObj = session.getAttribute("MEMBER");
-		if (memberObj == null)
-			return "redirect:/app/loginForm";
-
+	public String articleAddForm(@SessionAttribute("MEMBER")Member member) {
+		
 		return "article/addForm";
 	}
-
+	
+	
+	
 	/**
 	 * 글 등록
 	 */
 	@PostMapping("/article/add")
-	public String articleAdd(Article article, HttpSession session) {
-		Object memberObj = session.getAttribute("MEMBER");
-		if (memberObj == null)
-			return "redirect:/app/loginForm";
-
-		Member member = (Member) memberObj;
+	public String articleAdd(Article article, 
+		@SessionAttribute("MEMBER")Member member) {
+		
 		article.setUserId(member.getMemberId());
 		article.setName(member.getName());
 		articleDao.addArticle(article);

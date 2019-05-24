@@ -18,6 +18,8 @@ public class ArticleDao {
 	static final String GET_ARTICLE = "select articleId, title, content, userId, name, left(cdate,16) cdate, udate from article where articleId=?";
 
 	static final String ADD_ARTICLE = "insert article(title,content,userId,name) values(?,?,?,?)";
+	
+	static final String CHANGE_ARTICLE = "change article(title, content, userId, name) valuse (?,?,?,?)";
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -55,4 +57,6 @@ public class ArticleDao {
 		return jdbcTemplate.update(ADD_ARTICLE, article.getTitle(),
 				article.getContent(), article.getUserId(), article.getName());
 	}
+	
+	
 }
