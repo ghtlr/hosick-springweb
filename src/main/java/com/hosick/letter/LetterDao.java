@@ -20,7 +20,7 @@ public class LetterDao {
 	//편지쓰기
 	static final String INSERT = "insert letter(title,content,senderId,senderName,receiverId,receiverName) values(?,?,?,?,?,?)";
 	//편지 삭제
-	static final String DELETE = "delete from letter where letterId=9 and (senderId=? or receiverId=?)";
+	static final String DELETE = "delete from letter where letterId=? and (senderId=? or receiverId=?)";
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
@@ -29,12 +29,12 @@ public class LetterDao {
 			Letter.class);
 	
 	//보낸 목록
-	public List<Letter> sendlist(int offset, int count) {
+	public List<Letter> sendList(int offset, int count) {
 		return jdbcTemplate.query(SENDLIST, letterRowMapper, offset,
 				count);
 	}
 	//받은 목록
-	public List<Letter> receivelist(int offset, int count) {
+	public List<Letter> receiveList(int offset, int count) {
 		return jdbcTemplate.query(RECEIVELIST, letterRowMapper, offset,
 				count);
 	}
@@ -45,7 +45,7 @@ public class LetterDao {
 				letterId);
 	}
 	//편지 쓰기
-	public int addLetter(Letter letter) {
+	public int sendLetter(Letter letter) {
 		return jdbcTemplate.update(GET_LETTER, letter.getTitle(),
 				letter.getContent(), letter.getSenderId(), letter.getSenderName());
 	}

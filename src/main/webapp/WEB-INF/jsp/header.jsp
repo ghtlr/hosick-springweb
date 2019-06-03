@@ -2,7 +2,8 @@
 <header>
 	<p>
 		<span><a href="./">홈</a></span> | <span><a href="./app/members">회원목록</a></span>
-		| <span><a href="./app/article/list">게시판</a></span> |
+		| <span><a href="./app/article/list">게시판</a></span> | <span><a href="./app/letter/receivelist">받은 메일함</a></span> 
+		| <span><a href="./app/letter/sendlist">보낸 메일함</a></span> | 
 		<!-- 로그인 여부에 따라 분기 -->
 		<c:choose>
 			<c:when test="${!empty sessionScope.MEMBER }">
