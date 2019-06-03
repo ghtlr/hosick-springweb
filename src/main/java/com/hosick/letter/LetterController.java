@@ -2,6 +2,7 @@ package com.hosick.letter;
 
 import java.util.List;
 
+import com.hosick.chap11.Member;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
-
-import com.hosick.chap11.Member;
 
 
 
@@ -76,7 +75,7 @@ public class LetterController {
 	}
 	//메일 쓰기
 	@PostMapping("/letter/send")
-	public String sendLetter(Letter letter, 
+	public String letterSend(Letter letter, 
 		@SessionAttribute("MEMBER")Member member) {
 		
 		letter.setSenderId(member.getMemberId());
@@ -84,7 +83,21 @@ public class LetterController {
 		letterDao.sendLetter(letter);
 		return "redirect:/app/letter/sendlist";
 	}
-	
+	//메일 삭제
+	@GetMapping("/letter/delete")
+	public String delete(@RequestParam("senderId") String letterId,
+			@SessionAttribute("MEMBER") Member member) {
+		int updatedRows = letterDao.deleteLetter(letterId,
+				member.getMemberId());
+
+		// 권한 체크 : 글이 삭제되었는지 확인
+		if (updatedRows == 0)
+			// 글이 삭제되지 않음. 자신이 쓴 글이 아님
+			throw new RuntimeException("No Authority!");
+
+		logger.debug("글을 삭제했습니다. letterId={}", letterId);
+		return "redirect:/app/letter/sendlist";
+	}
 	
 
 }

@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.hosick.article.Article;
 
 
 public class LetterDao {
@@ -50,8 +49,8 @@ public class LetterDao {
 				letter.getContent(), letter.getSenderId(), letter.getSenderName());
 	}
 	//편지 삭제
-	public int deleteLetter(String letterId, String senderId) {
-		return jdbcTemplate.update(DELETE, letterId, senderId);
+	public int deleteLetter(String letterId, String userId) {
+		return jdbcTemplate.update(DELETE, letterId, userId);
 	}
 	
 

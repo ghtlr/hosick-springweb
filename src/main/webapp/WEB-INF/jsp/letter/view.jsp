@@ -17,9 +17,9 @@
 	<%@ include file="/WEB-INF/jsp/header.jsp"%>
 	<h2>메일 보기</h2>
 	<p>
-		<a href="./app/letter/list">메일 목록</a>
+		
 		<c:if test="${letter.userId == sessionScope.MEMBER.memberId }">
-			<a href="./app/letter/delete?receiverId=${letter.receiverId } | href="./app/letter/delete?senderId=${letter.senderId }"
+			<a href="./app/letter/delete?letterId=${letter.receiverId } | ${letter.senderId }"
 				onclick="return confirmDelete();">메일 삭제</a>
 		</c:if>
 	</p>

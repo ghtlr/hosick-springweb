@@ -62,8 +62,6 @@ public class ArticleController {
 		return "article/addForm";
 	}
 	
-	
-	
 	/**
 	 * 글 등록
 	 */
