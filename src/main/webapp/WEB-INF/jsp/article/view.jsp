@@ -19,7 +19,7 @@
 	<p>
 		<a href="./app/article/list">글목록</a>
 		<c:if test="${article.userId == sessionScope.MEMBER.memberId }">
-			<a href="./app/article/updateForm?articleId=${article.articleId }">글수정</a>
+			<a href="./app/article/edit?articleId=${article.articleId }">글수정</a>
 			<a href="./app/article/delete?articleId=${article.articleId }"
 				onclick="return confirmDelete();">글삭제</a>
 		</c:if>

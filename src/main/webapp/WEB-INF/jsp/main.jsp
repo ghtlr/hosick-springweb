@@ -17,9 +17,6 @@
 			<p>
 				<a href="./app/logout">[로그아웃]</a>
 			</p>
-			<p>
-				<a href="./app/sendForm">[메일 보내기]</a>
-			</p>
 		</c:when>
 		<c:otherwise>
 			<!-- 로그인 하지 않았을 경우 -->
